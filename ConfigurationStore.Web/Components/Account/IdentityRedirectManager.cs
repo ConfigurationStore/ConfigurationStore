@@ -1,7 +1,7 @@
+using ConfigurationStore.Data;
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
-
-using ConfigurationStore.Web.Data;
 
 namespace ConfigurationStore.Web.Components.Account;
 

@@ -14,6 +14,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Hosting", "LVK.Librarie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LVK.Events", "LVK.Libraries\src\LVK.Events\LVK.Events.csproj", "{E02E9403-1F32-4C9D-9AD3-808CF1C44893}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationStore.Data", "ConfigurationStore.Data\ConfigurationStore.Data.csproj", "{849F1E17-3066-48E6-BBB8-01898BEF8A1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationStore.Email", "ConfigurationStore.Email\ConfigurationStore.Email.csproj", "{87741051-3C82-4143-BAD8-07F4E4CAA220}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +48,14 @@ Global
 		{E02E9403-1F32-4C9D-9AD3-808CF1C44893}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E02E9403-1F32-4C9D-9AD3-808CF1C44893}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E02E9403-1F32-4C9D-9AD3-808CF1C44893}.Release|Any CPU.Build.0 = Release|Any CPU
+		{849F1E17-3066-48E6-BBB8-01898BEF8A1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{849F1E17-3066-48E6-BBB8-01898BEF8A1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{849F1E17-3066-48E6-BBB8-01898BEF8A1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{849F1E17-3066-48E6-BBB8-01898BEF8A1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87741051-3C82-4143-BAD8-07F4E4CAA220}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87741051-3C82-4143-BAD8-07F4E4CAA220}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87741051-3C82-4143-BAD8-07F4E4CAA220}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87741051-3C82-4143-BAD8-07F4E4CAA220}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{64EBB693-AA11-4006-918E-0C0213DF5711} = {BD902D70-25EE-4DAF-BE87-941B46EF962A}

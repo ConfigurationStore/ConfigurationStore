@@ -1,11 +1,11 @@
 using System.Security.Claims;
 
+using ConfigurationStore.Data;
+
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
-
-using ConfigurationStore.Web.Data;
 
 namespace ConfigurationStore.Web.Components.Account;
 

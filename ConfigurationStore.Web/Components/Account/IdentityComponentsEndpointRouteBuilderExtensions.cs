@@ -1,6 +1,8 @@
 using System.Security.Claims;
 using System.Text.Json;
 
+using ConfigurationStore.Data;
+
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -11,7 +13,6 @@ using Microsoft.Extensions.Primitives;
 
 using ConfigurationStore.Web.Components.Account.Pages;
 using ConfigurationStore.Web.Components.Account.Pages.Manage;
-using ConfigurationStore.Web.Data;
 
 namespace Microsoft.AspNetCore.Routing;
 
