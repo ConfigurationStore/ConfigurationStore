@@ -5,6 +5,8 @@ using LVK.Bootstrapping;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 
+using Radzen;
+
 namespace ConfigurationStore.Web;
 
 public class ApplicationBootstrapper : IModuleBootstrapper
@@ -14,6 +16,8 @@ public class ApplicationBootstrapper : IModuleBootstrapper
         builder.Bootstrap(new Core.ModuleBootstrapper());
         builder.Bootstrap(new Data.ModuleBootstrapper());
         builder.Bootstrap(new Email.ModuleBootstrapper());
+
+        builder.Services.AddRadzenComponents();
 
         builder.Services.AddTransient<IHostInitializer<WebApplication>, ApplicationInitializer>();
 

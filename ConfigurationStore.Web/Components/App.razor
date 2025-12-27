@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <RadzenTheme Theme="material" />
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <base href="/"/>
@@ -19,6 +20,7 @@
 <ReconnectModal/>
 <script src="@Assets["_framework/blazor.web.js"]"></script>
 <script src="@Assets["Components/Account/Shared/PasskeySubmit.razor.js"]" type="module"></script>
+<script src="_content/Radzen.Blazor/Radzen.Blazor.js?v=@(typeof(Radzen.Colors).Assembly.GetName().Version)"></script>
 </body>
 
 </html>
@@ -28,5 +30,14 @@
     [CascadingParameter]
     private HttpContext HttpContext { get; set; } = default!;
 
-    private IComponentRenderMode? PageRenderMode => HttpContext.AcceptsInteractiveRouting() ? InteractiveServer : null;
+    private IComponentRenderMode? PageRenderMode
+    {
+        get
+        {
+            bool acceptsInteractiveRouting = HttpContext.AcceptsInteractiveRouting();
+            InteractiveServerRenderMode? value = acceptsInteractiveRouting ? InteractiveServer : null;
+            Console.WriteLine($"PageRenderMode: {value?.ToString() ?? "<null>"}");
+            return value;
+        }
+    }
 }

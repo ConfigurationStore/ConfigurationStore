@@ -1,5 +1,9 @@
 ﻿@inherits LayoutComponentBase
 
+@if (AcceptsInteractiveRouting)
+{
+    <RadzenComponents @rendermode="InteractiveServer"/>
+}
 <div class="page">
     <div class="sidebar">
         <NavMenu/>
@@ -21,3 +25,24 @@
     <a href="." class="reload">Reload</a>
     <span class="dismiss">🗙</span>
 </div>
+
+@code {
+
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    private bool AcceptsInteractiveRouting
+    {
+        get
+        {
+            try
+            {
+                return HttpContext.AcceptsInteractiveRouting();
+            }
+            catch (ArgumentNullException)
+            {
+                return false;
+            }
+        }
+    }
+}
