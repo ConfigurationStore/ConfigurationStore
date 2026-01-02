@@ -19,7 +19,21 @@ public partial class Home
         _dbContextFactory = dbContextFactory ?? throw new ArgumentNullException(nameof(dbContextFactory));
     }
 
-    private async Task LogInDummy()
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await LogInIfLoggedOut();
+    }
+
+    private async Task LogInIfLoggedOut()
+    {
+        if (_authenticationState.AuthenticatedUser == null)
+        {
+            await LogInAdministratorInDevelopment();
+        }
+    }
+
+    private async Task LogInAdministratorInDevelopment()
     {
         await using MainDbContext dbContext = await _dbContextFactory.CreateDbContextAsync();
         List<User> users = await dbContext.Users.ToListAsync();
