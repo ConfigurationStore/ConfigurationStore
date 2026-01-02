@@ -2,8 +2,6 @@
 
 using LVK.Bootstrapping;
 
-using Microsoft.AspNetCore.Identity;
-
 namespace ConfigurationStore.Web;
 
 public class ApplicationInitializer : IHostInitializer<WebApplication>

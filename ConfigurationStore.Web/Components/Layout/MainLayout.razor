@@ -1,20 +1,43 @@
-﻿@inherits LayoutComponentBase
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@inherits LayoutComponentBase
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu/>
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+<RadzenComponents @rendermode="InteractiveServer" />
+<CascadingAuthenticationState>
+    <RadzenLayout>
+        <RadzenHeader Orientation="LayoutOrientation.Horizontal">
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0" JustifyContent="JustifyContent.SpaceBetween">
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="10px">
+                    <RadzenSidebarToggle Click="@(() => _sidebarExpanded = !_sidebarExpanded)"/>
+                    <div><RadzenLabel Text="Configuration Store"/> :: <RadzenLabel Text="@_pageTitle"/></div>
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.End">
+                    <AuthorizeView>
+                        <RadzenSplitButton ButtonStyle="ButtonStyle.Primary" Icon="account_circle" Click="ProfileButtonClick" Text="@_authenticationStateProvider.AuthenticatedUser?.DisplayName">
+                            <RadzenSplitButtonItem Text="Go to profile page" Value="profile"/>
+                            <RadzenSplitButtonItem Text="Log out" Value="logout"/>
+                        </RadzenSplitButton>
+                    </AuthorizeView>
+                </RadzenStack>
+            </RadzenStack>
+        </RadzenHeader>
+        <RadzenSidebar @bind-Expanded="@_sidebarExpanded">
+            <RadzenPanelMenu>
+                <AuthorizeView>
+                    <Authorized>Logged in</Authorized>
+                    <NotAuthorized>Not logged in</NotAuthorized>
+                </AuthorizeView>
+                <RadzenPanelMenuItem Text="Dummy page" Path="/dummy"/>
+            </RadzenPanelMenu>
+        </RadzenSidebar>
+        <RadzenBody>
+            <div class="rz-p-4">
+                <CascadingValue Value="(Action<string>)SetPageTitle">
+                    @Body
+                </CascadingValue>
+            </div>
+        </RadzenBody>
+    </RadzenLayout>
+</CascadingAuthenticationState>
 
 <div id="blazor-error-ui" data-nosnippet>
     An unhandled error has occurred.

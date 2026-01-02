@@ -1,0 +1,12 @@
+﻿@page "/dummy"
+@using Microsoft.AspNetCore.Components.Authorization
+<PageTitle>DummyPage</PageTitle>
+
+<AuthorizeView>
+    <Authorized>
+        <p>Hello, authorized user!</p>
+    </Authorized>
+    <NotAuthorized>
+        <p>You're not logged in.</p>
+    </NotAuthorized>
+</AuthorizeView>
