@@ -1,26 +1,45 @@
 ﻿using ConfigurationStore.Auth;
 using ConfigurationStore.Data;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace ConfigurationStore.Web.Components.Pages;
 
 public partial class Home
 {
     private readonly ConfigurationStoreAuthenticationStateProvider _authenticationState;
+    private readonly IHostEnvironment _hostEnvironment;
+    private readonly IDbContextFactory<MainDbContext> _dbContextFactory;
 
-    public Home(ConfigurationStoreAuthenticationStateProvider authenticationState)
+    public Home(ConfigurationStoreAuthenticationStateProvider authenticationState, IHostEnvironment hostEnvironment,
+            IDbContextFactory<MainDbContext> dbContextFactory)
     {
         _authenticationState = authenticationState ?? throw new ArgumentNullException(nameof(authenticationState));
+        _hostEnvironment = hostEnvironment ?? throw new ArgumentNullException(nameof(hostEnvironment));
+        _dbContextFactory = dbContextFactory ?? throw new ArgumentNullException(nameof(dbContextFactory));
     }
 
-    private void LogInDummy()
+    private async Task LogInDummy()
     {
-        if (_authenticationState.AuthenticatedUser != null)
+        await using MainDbContext dbContext = await _dbContextFactory.CreateDbContextAsync();
+        List<User> users = await dbContext.Users.ToListAsync();
+        if (users.Any())
         {
-            _authenticationState.SetLoggedOut();
+            _authenticationState.SetLoggedIn(users[0]);
+            return;
         }
-        else
+
+        var user = new User
         {
-            _authenticationState.SetLoggedIn(new User { Username = "dummy", DisplayName = "Dummy User", PasswordHash = "" });
-        }
+            Username = "admin", DisplayName = "Administrator", PasswordHash = "==",
+        };
+        dbContext.Users.Add(user);
+        await dbContext.SaveChangesAsync();
+        _authenticationState.SetLoggedIn(user);
+    }
+
+    private void LogOutDummy()
+    {
+        _authenticationState.SetLoggedOut();
     }
 }

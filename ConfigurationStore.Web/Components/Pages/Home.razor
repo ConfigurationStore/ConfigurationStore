@@ -2,4 +2,14 @@
 
 <PageTitle>Home</PageTitle>
 
-<RadzenButton Click="LogInDummy" Text="Log in" />
+@if (_hostEnvironment.IsDevelopment())
+{
+    <AuthorizeView>
+        <Authorized>
+            <RadzenButton Click="LogOutDummy" Text="Log out" />
+        </Authorized>
+        <NotAuthorized>
+            <RadzenButton Click="LogInDummy" Text="Log in" />
+        </NotAuthorized>
+    </AuthorizeView>
+}
