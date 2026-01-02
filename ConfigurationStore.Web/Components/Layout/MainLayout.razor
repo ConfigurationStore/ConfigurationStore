@@ -23,9 +23,10 @@
             <RadzenPanelMenu>
                 <AuthorizeView>
                     <Authorized>
-                        <RadzenPanelMenuItem Text="Projects" />
-                        <RadzenPanelMenuItem Text="Administration">
-                            <RadzenPanelMenuItem Text="Users" Path="/administration/users" />
+                        <RadzenPanelMenuItem Icon="view_kanban" Text="Projects" />
+                        <RadzenPanelMenuItem Icon="build" Text="Administration">
+                            <RadzenPanelMenuItem Icon="person" Text="Users" Path="/administration/users" />
+                            <RadzenPanelMenuItem Icon="group" Text="User groups" Path="/administration/usergroups" />
                         </RadzenPanelMenuItem>
                     </Authorized>
                     <NotAuthorized>
