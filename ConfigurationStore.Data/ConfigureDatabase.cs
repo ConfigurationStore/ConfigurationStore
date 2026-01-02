@@ -1,19 +1,33 @@
 ﻿using LVK.Bootstrapping;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 namespace ConfigurationStore.Data;
 
-internal class DevelopmentDatabase : IModuleInitializer
+internal class ConfigureDatabase : IModuleInitializer
 {
     private readonly IDbContextFactory<MainDbContext> _dbContextFactory;
+    private readonly IHostEnvironment _hostEnvironment;
 
-    public DevelopmentDatabase(IDbContextFactory<MainDbContext> dbContextFactory)
+    public ConfigureDatabase(IDbContextFactory<MainDbContext> dbContextFactory, IHostEnvironment hostEnvironment)
     {
         _dbContextFactory = dbContextFactory ?? throw new ArgumentNullException(nameof(dbContextFactory));
+        _hostEnvironment = hostEnvironment ?? throw new ArgumentNullException(nameof(hostEnvironment));
     }
 
     public async Task InitializeAsync(CancellationToken cancellationToken)
+    {
+        await using MainDbContext dbContext = await _dbContextFactory.CreateDbContextAsync(cancellationToken);
+        await dbContext.Database.MigrateAsync(cancellationToken);
+
+        if (_hostEnvironment.IsDevelopment())
+        {
+            await InitializeDevelopmentDatabase(cancellationToken);
+        }
+    }
+
+    public async Task InitializeDevelopmentDatabase(CancellationToken cancellationToken)
     {
         await using MainDbContext dbContext = await _dbContextFactory.CreateDbContextAsync(cancellationToken);
         User adminUser = await GetOrAddAdminUser(dbContext);

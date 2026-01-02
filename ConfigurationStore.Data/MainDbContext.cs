@@ -12,4 +12,7 @@ public class MainDbContext : DbContext
 
     public DbSet<User> Users { get; set; }
     public DbSet<UserGroup> UserGroups { get; set; }
+
+    public DbSet<Project> Projects { get; set; }
+    public DbSet<ProjectEnvironment> ProjectEnvironments { get; set; }
 }
