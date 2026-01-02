@@ -11,7 +11,12 @@ public class ModuleBootstrapper : IModuleBootstrapper
 {
     public void Bootstrap(IHostApplicationBuilder builder)
     {
-        builder.Services.AddTransient<IModuleInitializer, DatabaseInitializer>();
+        builder.Services.AddTransient<IModuleInitializer, DatabaseMigrator>();
+
+        if (builder.Environment.IsDevelopment())
+        {
+            builder.Services.AddTransient<IModuleInitializer, DevelopmentDatabase>();
+        }
 
         builder.Services.AddDbContextFactory<MainDbContext>(options =>
         {

@@ -51,6 +51,54 @@ namespace ConfigurationStore.Data.Migrations
 
                     b.ToTable("Users");
                 });
+
+            modelBuilder.Entity("ConfigurationStore.Data.UserGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserGroups");
+                });
+
+            modelBuilder.Entity("UserUserGroup", b =>
+                {
+                    b.Property<int>("GroupsId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UsersId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("GroupsId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("UserUserGroup");
+                });
+
+            modelBuilder.Entity("UserUserGroup", b =>
+                {
+                    b.HasOne("ConfigurationStore.Data.UserGroup", null)
+                        .WithMany()
+                        .HasForeignKey("GroupsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ConfigurationStore.Data.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 #pragma warning restore 612, 618
         }
     }

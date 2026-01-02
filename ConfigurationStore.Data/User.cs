@@ -20,4 +20,6 @@ public class User
 
     [MaxLength(256)]
     public required string PasswordHash { get; set; }
+
+    public ICollection<UserGroup> Groups { get; set; } = new HashSet<UserGroup>();
 }

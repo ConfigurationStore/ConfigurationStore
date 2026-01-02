@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ConfigurationStore.Data;
 
-internal class DatabaseInitializer : IModuleInitializer
+internal class DatabaseMigrator : IModuleInitializer
 {
     private readonly IDbContextFactory<MainDbContext> _dbContextFactory;
 
-    public DatabaseInitializer(IDbContextFactory<MainDbContext> dbContextFactory)
+    public DatabaseMigrator(IDbContextFactory<MainDbContext> dbContextFactory)
     {
         _dbContextFactory = dbContextFactory ?? throw new ArgumentNullException(nameof(dbContextFactory));
     }

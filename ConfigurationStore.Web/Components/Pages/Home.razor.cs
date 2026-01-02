@@ -40,16 +40,7 @@ public partial class Home
         if (users.Any())
         {
             _authenticationState.SetLoggedIn(users[0]);
-            return;
         }
-
-        var user = new User
-        {
-            Username = "admin", DisplayName = "Administrator", PasswordHash = "==",
-        };
-        dbContext.Users.Add(user);
-        await dbContext.SaveChangesAsync();
-        _authenticationState.SetLoggedIn(user);
     }
 
     private void LogOutDummy()
