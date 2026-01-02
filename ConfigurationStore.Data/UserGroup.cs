@@ -16,4 +16,5 @@ public class UserGroup
     public required string Name { get; set; }
 
     public ICollection<User> Users { get; set; } = new HashSet<User>();
+    public ICollection<ProjectEnvironment> ProjectEnvironments { get; set; } = new HashSet<ProjectEnvironment>();
 }

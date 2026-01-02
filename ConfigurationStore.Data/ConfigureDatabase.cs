@@ -30,18 +30,26 @@ internal class ConfigureDatabase : IModuleInitializer
     public async Task InitializeDevelopmentDatabase(CancellationToken cancellationToken)
     {
         await using MainDbContext dbContext = await _dbContextFactory.CreateDbContextAsync(cancellationToken);
-        User adminUser = await GetOrAddAdminUser(dbContext);
-        UserGroup administratorsGroup = await GetOrAddAdministratorsGroup(dbContext);
+        User adminUser = await GetOrAddUser(dbContext, "admin", "Administrator");
+        UserGroup administratorsGroup = await GetOrAddUserGroup(dbContext, "Administrators");
         if (!administratorsGroup.Users.Contains(adminUser))
         {
             administratorsGroup.Users.Add(adminUser);
             await dbContext.SaveChangesAsync(cancellationToken);
         }
+
+        User developerUse = await GetOrAddUser(dbContext, "developer", "Developer");
+        UserGroup developersGroup = await GetOrAddUserGroup(dbContext, "Developers");
+        if (!developersGroup.Users.Contains(developerUse))
+        {
+            developersGroup.Users.Add(developerUse);
+            await dbContext.SaveChangesAsync(cancellationToken);
+        }
     }
 
-    private async Task<UserGroup> GetOrAddAdministratorsGroup(MainDbContext dbContext)
+    private async Task<UserGroup> GetOrAddUserGroup(MainDbContext dbContext, string name)
     {
-        UserGroup? administrators = await dbContext.UserGroups.Include(ug => ug.Users).FirstOrDefaultAsync(u => u.Name == "Administrators");
+        UserGroup? administrators = await dbContext.UserGroups.Include(ug => ug.Users).FirstOrDefaultAsync(u => u.Name == name);
         if (administrators != null)
         {
             return administrators;
@@ -49,29 +57,29 @@ internal class ConfigureDatabase : IModuleInitializer
 
         administrators = new UserGroup
         {
-            Name = "Administrators",
+            Name = name,
         };
         dbContext.UserGroups.Add(administrators);
         await dbContext.SaveChangesAsync();
         return administrators;
     }
 
-    private async Task<User> GetOrAddAdminUser(MainDbContext dbContext)
+    private async Task<User> GetOrAddUser(MainDbContext dbContext, string username, string displayName)
     {
-        User? admin = await dbContext.Users.FirstOrDefaultAsync(u => u.Username == "admin");
-        if (admin != null)
+        User? user = await dbContext.Users.FirstOrDefaultAsync(u => u.Username == username);
+        if (user != null)
         {
-            return admin;
+            return user;
         }
 
-        admin = new User
+        user = new User
         {
-            Username = "admin",
-            DisplayName = "Administrator",
+            Username = username,
+            DisplayName = displayName,
             PasswordHash = "==",
         };
-        dbContext.Users.Add(admin);
+        dbContext.Users.Add(user);
         await dbContext.SaveChangesAsync();
-        return admin;
+        return user;
     }
 }

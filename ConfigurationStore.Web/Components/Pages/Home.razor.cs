@@ -41,14 +41,28 @@ public partial class Home
     private async Task LogInAdministratorInDevelopment()
     {
         await using MainDbContext dbContext = await _dbContextFactory.CreateDbContextAsync();
-        List<User> users = await dbContext.Users.ToListAsync();
-        if (users.Any())
+        User? user = await dbContext.Users
+           .Include(u => u.Groups)
+           .FirstOrDefaultAsync(u => u.Username == "admin");
+        if (user != null)
         {
-            _authenticationState.SetLoggedIn(users[0]);
+            _authenticationState.SetLoggedIn(user);
         }
     }
 
-    private void LogOutDummy()
+    private async Task LogInDeveloperInDevelopment()
+    {
+        await using MainDbContext dbContext = await _dbContextFactory.CreateDbContextAsync();
+        User? user = await dbContext.Users
+           .Include(u => u.Groups)
+           .FirstOrDefaultAsync(u => u.Username == "developer");
+        if (user != null)
+        {
+            _authenticationState.SetLoggedIn(user);
+        }
+    }
+
+    private void LogOut()
     {
         _authenticationState.SetLoggedOut();
     }

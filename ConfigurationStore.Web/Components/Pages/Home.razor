@@ -6,12 +6,16 @@
 {
     <AuthorizeView>
         <Authorized>
-            <RadzenButton Click="LogOutDummy" Text="Log out"/>
+            <RadzenButton Click="LogOut" Text="Log out"/>
         </Authorized>
         <NotAuthorized>
             <RadzenLabel>Log in 'Administrator' in development.</RadzenLabel>
             <br/>
             <RadzenButton Click="LogInAdministratorInDevelopment" Text="Log in"/>
+            <hr/>
+            <RadzenLabel>Log in 'Developer' in development.</RadzenLabel>
+            <br/>
+            <RadzenButton Click="LogInDeveloperInDevelopment" Text="Log in"/>
         </NotAuthorized>
     </AuthorizeView>
 }

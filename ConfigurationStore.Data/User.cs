@@ -22,4 +22,5 @@ public class User
     public required string PasswordHash { get; set; }
 
     public ICollection<UserGroup> Groups { get; set; } = new HashSet<UserGroup>();
+    public ICollection<ProjectEnvironment> ProjectEnvironments { get; set; } = new HashSet<ProjectEnvironment>();
 }
