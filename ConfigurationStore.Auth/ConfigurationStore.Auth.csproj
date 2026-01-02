@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ConfigurationStore.Data\ConfigurationStore.Data.csproj" />
+      <ProjectReference Include="..\LVK.Libraries\src\LVK.Bootstrapping\LVK.Bootstrapping.csproj" />
+      <ProjectReference Include="..\LVK.Libraries\src\LVK.Core\LVK.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Microsoft.Extensions.Identity.Core">
+        <HintPath>C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\10.0.1\Microsoft.Extensions.Identity.Core.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="UserManager.cs">
+        <DependentUpon>IUserManager.cs</DependentUpon>
+      </Compile>
+      <Compile Update="AuthenticationState.cs">
+        <DependentUpon>IAuthenticationState.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+</Project>

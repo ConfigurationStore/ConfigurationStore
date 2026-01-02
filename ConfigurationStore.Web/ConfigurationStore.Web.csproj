@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
+        <UserSecretsId>3402cd5a-7818-4e47-bbe2-145faab8ac3d</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ConfigurationStore.Auth\ConfigurationStore.Auth.csproj" />
+      <ProjectReference Include="..\ConfigurationStore.Data\ConfigurationStore.Data.csproj" />
+      <ProjectReference Include="..\LVK.Libraries\src\LVK.Bootstrapping\LVK.Bootstrapping.csproj" />
+      <ProjectReference Include="..\LVK.Libraries\src\LVK.Core\LVK.Core.csproj" />
+      <ProjectReference Include="..\LVK.Libraries\src\LVK.Events\LVK.Events.csproj" />
+      <ProjectReference Include="..\LVK.Libraries\src\LVK.Hosting\LVK.Hosting.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.1">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+    </ItemGroup>
+
+</Project>
