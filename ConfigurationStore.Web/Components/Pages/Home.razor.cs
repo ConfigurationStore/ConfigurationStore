@@ -1,12 +1,16 @@
 ﻿using ConfigurationStore.Auth;
 using ConfigurationStore.Data;
 
+using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
 
 namespace ConfigurationStore.Web.Components.Pages;
 
 public partial class Home
 {
+    [CascadingParameter]
+    public Action<string>? SetPageTitle { get; set; }
+
     private readonly ConfigurationStoreAuthenticationStateProvider _authenticationState;
     private readonly IHostEnvironment _hostEnvironment;
     private readonly IDbContextFactory<MainDbContext> _dbContextFactory;
@@ -21,6 +25,7 @@ public partial class Home
 
     protected override async Task OnInitializedAsync()
     {
+        SetPageTitle?.Invoke("Login");
         await base.OnInitializedAsync();
         await LogInIfLoggedOut();
     }
