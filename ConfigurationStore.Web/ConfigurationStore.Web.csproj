@@ -9,6 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\ConfigurationStore.Api\ConfigurationStore.Api.csproj" />
       <ProjectReference Include="..\ConfigurationStore.Auth\ConfigurationStore.Auth.csproj" />
       <ProjectReference Include="..\ConfigurationStore.Data\ConfigurationStore.Data.csproj" />
       <ProjectReference Include="..\LVK.Libraries\src\LVK.Bootstrapping\LVK.Bootstrapping.csproj" />

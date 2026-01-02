@@ -10,12 +10,12 @@ public class ApplicationBootstrapper : IModuleBootstrapper
     {
         builder.Bootstrap(new Data.ModuleBootstrapper());
         builder.Bootstrap(new Auth.ModuleBootstrapper());
+        builder.Bootstrap(new Api.ModuleBootstrapper());
 
         builder.Services.AddRadzenComponents();
 
         builder.Services.AddTransient<IHostInitializer<WebApplication>, ApplicationInitializer>();
 
-        // Add services to the container.
         builder.Services.AddRazorComponents().AddInteractiveServerComponents();
     }
 }
