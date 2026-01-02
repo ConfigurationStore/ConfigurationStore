@@ -22,10 +22,16 @@
         <RadzenSidebar @bind-Expanded="@_sidebarExpanded">
             <RadzenPanelMenu>
                 <AuthorizeView>
-                    <Authorized>Logged in</Authorized>
-                    <NotAuthorized>Not logged in</NotAuthorized>
+                    <Authorized>
+                        <RadzenPanelMenuItem Text="Projects" />
+                        <RadzenPanelMenuItem Text="Administration">
+                            <RadzenPanelMenuItem Text="Users" Path="/administration/users" />
+                        </RadzenPanelMenuItem>
+                    </Authorized>
+                    <NotAuthorized>
+                        <RadzenPanelMenuItem Text="Login" Path="/" />
+                    </NotAuthorized>
                 </AuthorizeView>
-                <RadzenPanelMenuItem Text="Dummy page" Path="/dummy"/>
             </RadzenPanelMenu>
         </RadzenSidebar>
         <RadzenBody>
