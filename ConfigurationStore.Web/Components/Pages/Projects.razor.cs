@@ -1,15 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿namespace ConfigurationStore.Web.Components.Pages;
 
-namespace ConfigurationStore.Web.Components.Pages;
-
-public partial class Projects : ComponentBase
+public partial class Projects
 {
-    [CascadingParameter]
-    public Action<string>? SetPageTitle { get; set; }
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-        SetPageTitle?.Invoke("Projects");
-    }
+    protected override string PageTitle => "Projects";
 }

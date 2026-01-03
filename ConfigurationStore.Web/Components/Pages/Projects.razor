@@ -1,3 +1,12 @@
 ﻿@page "/projects"
-<PageTitle>Projects :: Configuration Store</PageTitle>
-<h3>Projects</h3>
+@inherits AuthenticatedPageBase
+
+<AuthorizeView>
+    <Authorized>
+        <PageTitle>Projects :: Configuration Store</PageTitle>
+        <h3>Projects</h3>
+    </Authorized>
+    <NotAuthorized>
+        <p>Please log in to access this page</p>
+    </NotAuthorized>
+</AuthorizeView>

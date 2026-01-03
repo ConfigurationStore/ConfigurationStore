@@ -2,14 +2,15 @@
 using ConfigurationStore.Data;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Primitives;
 
 namespace ConfigurationStore.Web.Components.Pages;
 
 public partial class Home
 {
-    [CascadingParameter]
-    public Action<string>? SetPageTitle { get; set; }
+    protected override string PageTitle => "Login";
 
     private readonly ConfigurationStoreAuthenticationStateProvider _authenticationState;
     private readonly IHostEnvironment _hostEnvironment;
@@ -27,15 +28,6 @@ public partial class Home
     {
         SetPageTitle?.Invoke("Login");
         await base.OnInitializedAsync();
-        await LogInIfLoggedOut();
-    }
-
-    private async Task LogInIfLoggedOut()
-    {
-        if (_authenticationState.AuthenticatedUser == null)
-        {
-            await LogInAdministratorInDevelopment();
-        }
     }
 
     private async Task LogInAdministratorInDevelopment()
@@ -47,6 +39,7 @@ public partial class Home
         if (user != null)
         {
             _authenticationState.SetLoggedIn(user);
+            CheckRedirect();
         }
     }
 
@@ -59,6 +52,16 @@ public partial class Home
         if (user != null)
         {
             _authenticationState.SetLoggedIn(user);
+            CheckRedirect();
+        }
+    }
+
+    private void CheckRedirect()
+    {
+        Dictionary<string, StringValues> query = QueryHelpers.ParseQuery(new Uri(NavigationManager.Uri).Query);
+        if (query.TryGetValue("returnUrl", out StringValues returnUrl))
+        {
+            NavigationManager.NavigateTo(returnUrl[0]!);
         }
     }
 
