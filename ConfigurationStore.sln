@@ -18,6 +18,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationStore.Auth", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationStore.Api", "ConfigurationStore.Api\ConfigurationStore.Api.csproj", "{A8F1924B-7414-499E-88A9-78B171AF091B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationStore.Validation", "ConfigurationStore.Validation\ConfigurationStore.Validation.csproj", "{7D705C9A-26F5-4479-9991-473FCF30DB3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationStore.Core", "ConfigurationStore.Core\ConfigurationStore.Core.csproj", "{083B6749-08D6-430E-A718-74D4A079B84C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,5 +66,13 @@ Global
 		{A8F1924B-7414-499E-88A9-78B171AF091B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8F1924B-7414-499E-88A9-78B171AF091B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8F1924B-7414-499E-88A9-78B171AF091B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D705C9A-26F5-4479-9991-473FCF30DB3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D705C9A-26F5-4479-9991-473FCF30DB3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D705C9A-26F5-4479-9991-473FCF30DB3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D705C9A-26F5-4479-9991-473FCF30DB3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{083B6749-08D6-430E-A718-74D4A079B84C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{083B6749-08D6-430E-A718-74D4A079B84C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{083B6749-08D6-430E-A718-74D4A079B84C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{083B6749-08D6-430E-A718-74D4A079B84C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

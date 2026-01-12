@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using JetBrains.Annotations;
+
+using Microsoft.AspNetCore.Components;
+
+using Radzen;
 
 namespace ConfigurationStore.Web.Components.Pages;
 
@@ -9,6 +13,12 @@ public abstract class BasePage : ComponentBase
 
     [Inject]
     public NavigationManager NavigationManager { get; set; } = null!;
+
+    [Inject]
+    public DialogService DialogService { get; set; } = null!;
+
+    [Inject]
+    public NotificationService NotificationService { get; set; } = null!;
 
     protected abstract string PageTitle { get; }
 

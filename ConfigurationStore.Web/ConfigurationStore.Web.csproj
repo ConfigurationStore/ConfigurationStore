@@ -12,6 +12,7 @@
       <ProjectReference Include="..\ConfigurationStore.Api\ConfigurationStore.Api.csproj" />
       <ProjectReference Include="..\ConfigurationStore.Auth\ConfigurationStore.Auth.csproj" />
       <ProjectReference Include="..\ConfigurationStore.Data\ConfigurationStore.Data.csproj" />
+      <ProjectReference Include="..\ConfigurationStore.Validation\ConfigurationStore.Validation.csproj" />
       <ProjectReference Include="..\LVK.Libraries\src\LVK.Bootstrapping\LVK.Bootstrapping.csproj" />
       <ProjectReference Include="..\LVK.Libraries\src\LVK.Core\LVK.Core.csproj" />
       <ProjectReference Include="..\LVK.Libraries\src\LVK.Events\LVK.Events.csproj" />
@@ -23,7 +24,13 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Radzen.Blazor" Version="8.4.2" />
+      <PackageReference Include="Radzen.Blazor" Version="8.5.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Components\Dialogs\NewProjectDialogModel.cs">
+        <DependentUpon>NewProjectDialog.razor</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>

@@ -4,7 +4,29 @@
 <AuthorizeView>
     <Authorized>
         <PageTitle>Projects :: Configuration Store</PageTitle>
-        <h3>Projects</h3>
+
+        <RadzenStack Orientation="Orientation.Vertical">
+            <RadzenStack Orientation="Orientation.Horizontal">
+                <RadzenButton Icon="add" Text="New Project" Click="@NewProject" />
+            </RadzenStack>
+
+            @if (_projects != null)
+            {
+                <RadzenDataGrid Data="@_projects">
+                    <Columns>
+                        <RadzenDataGridColumn Property="Name" Title="Name">
+                            <Template Context="item">
+                                @{
+                                    string path = @"/projects/" + item.Id;
+                                }
+                                <RadzenLink Text="@item.Name" Path="@path"/>
+                            </Template>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn Property="Owner.DisplayName" Title="Owner"/>
+                    </Columns>
+                </RadzenDataGrid>
+            }
+        </RadzenStack>
     </Authorized>
     <NotAuthorized>
         <p>Please log in to access this page</p>
