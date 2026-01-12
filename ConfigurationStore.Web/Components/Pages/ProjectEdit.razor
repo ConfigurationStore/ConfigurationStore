@@ -8,16 +8,30 @@
 }
 else
 {
-    <RadzenStack AlignItems="AlignItems.Center" Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.SpaceBetween">
-        <RadzenText Text="@_model.Name" TextStyle="TextStyle.H4" />
-        <RadzenSplitButton Icon="list" Click="OnContextButtonClick">
-            <ChildContent>
-                <RadzenSplitButtonItem Style="white-space: nowrap;" Text="Rename Project" Value="rename" Icon="edit"/>
-                <RadzenSplitButtonItem Style="white-space: nowrap;" Text="Delete Project" Value="delete" Icon="delete"/>
-            </ChildContent>
-        </RadzenSplitButton>
+    <RadzenStack Orientation="Orientation.Vertical">
+        <RadzenStack AlignItems="AlignItems.Center" Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.SpaceBetween">
+            <RadzenText Text="@_model.Name" TextStyle="TextStyle.H4" />
+            <RadzenSplitButton Icon="list" Click="OnContextButtonClick">
+                <ChildContent>
+                    <RadzenSplitButtonItem Style="white-space: nowrap;" Text="Rename Project" Value="rename" Icon="edit"/>
+                    <RadzenSplitButtonItem Style="white-space: nowrap;" Text="Delete Project" Value="delete" Icon="delete"/>
+                </ChildContent>
+            </RadzenSplitButton>
+        </RadzenStack>
+        <RadzenTabs>
+            <Tabs>
+                <RadzenTabsItem Text="Environments" Icon="desktop_cloud_stack">
+                    Environments
+                </RadzenTabsItem>
+                <RadzenTabsItem Text="Secrets" Icon="lock">
+                    Secrets
+                </RadzenTabsItem>
+                <RadzenTabsItem Text="Feature Flags" Icon="flag">
+                    Feature flags
+                </RadzenTabsItem>
+            </Tabs>
+        </RadzenTabs>
     </RadzenStack>
-
 }
 
 @code {
