@@ -16,13 +16,14 @@
                     <Columns>
                         <RadzenDataGridColumn Property="Name" Title="Name">
                             <Template Context="item">
-                                @{
-                                    string path = @"/projects/" + item.Id;
-                                }
-                                <RadzenLink Text="@item.Name" Path="@path"/>
+                                <RadzenLink Text="@item.Name" Path="@item.ProjectUrl"/>
                             </Template>
                         </RadzenDataGridColumn>
-                        <RadzenDataGridColumn Property="Owner.DisplayName" Title="Owner"/>
+                        <RadzenDataGridColumn Property="Owner" Title="Owner">
+                            <Template Context="item">
+                                <RadzenLink Text="@item.Owner" Path="@item.OwnerUrl"/>
+                            </Template>
+                        </RadzenDataGridColumn>
                     </Columns>
                 </RadzenDataGrid>
             }

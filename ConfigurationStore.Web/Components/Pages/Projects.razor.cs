@@ -12,7 +12,7 @@ public partial class Projects
     private readonly IDbContextFactory<MainDbContext> _dbContextFactory;
     protected override string PageTitle => "Projects";
 
-    private List<Project>? _projects;
+    private List<ProjectsModel>? _projects;
 
     public Projects(IDbContextFactory<MainDbContext> dbContextFactory)
     {
@@ -29,7 +29,8 @@ public partial class Projects
     private async Task UpdateProjectList()
     {
         await using MainDbContext dbContext = await _dbContextFactory.CreateDbContextAsync();
-        _projects = await dbContext.Projects.Include(p => p.Owner).OrderBy(p => p.Name).ToListAsync();
+        List<Project> projects = await dbContext.Projects.Include(p => p.Owner).OrderBy(p => p.Name).ToListAsync();
+        _projects = projects.Select(p => new ProjectsModel(p)).ToList();
     }
 
     private async Task NewProject()
