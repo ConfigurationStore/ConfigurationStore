@@ -8,5 +8,32 @@
 }
 else
 {
-    <h3>@_model.Name</h3>
+    <RadzenStack AlignItems="AlignItems.Center" Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.SpaceBetween">
+        <RadzenText Text="@_model.Name" TextStyle="TextStyle.H4" />
+        <RadzenSplitButton Icon="list" Click="OnContextButtonClick">
+            <ChildContent>
+                <RadzenSplitButtonItem Style="white-space: nowrap;" Text="Rename Project" Value="rename" Icon="edit"/>
+                <RadzenSplitButtonItem Style="white-space: nowrap;" Text="Delete Project" Value="delete" Icon="delete"/>
+            </ChildContent>
+        </RadzenSplitButton>
+    </RadzenStack>
+
+}
+
+@code {
+
+    private RenderFragment ConfirmDeleteContent
+        => @<div>
+               <p>Are you sure you want to delete project @_model!.Name?</p>
+               <p>
+                   This will also delete:
+               </p>
+               <ul>
+                   <li>All environments in the project, along with their access keys</li>
+                   <li>All secrets, along with all the current values in all environments</li>
+                   <li>All feature flags, along with all the current values in all environments</li>
+               </ul>
+               <p><b>NOTE! There is no undo!</b></p>
+           </div>;
+
 }

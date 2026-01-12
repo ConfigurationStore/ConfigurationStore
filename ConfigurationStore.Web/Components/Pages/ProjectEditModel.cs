@@ -10,4 +10,5 @@ public class ProjectEditModel
     }
 
     public string Name => _project.Name;
+    public int Id => _project.Id;
 }

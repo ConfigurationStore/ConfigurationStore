@@ -37,6 +37,9 @@
       <Compile Update="Components\Pages\ProjectEditModel.cs">
         <DependentUpon>ProjectEdit.razor</DependentUpon>
       </Compile>
+      <Compile Update="Components\Dialogs\RenameProjectDialogModel.cs">
+        <DependentUpon>RenameProjectDialog.razor</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>

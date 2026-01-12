@@ -1,0 +1,13 @@
+﻿<RadzenTemplateForm TItem="RenameProjectDialogModel" Data="Model" Submit="RenameProject" InvalidSubmit="DoNotRenameProject">
+    <DataAnnotationsValidator />
+    <RadzenStack Orientation="Orientation.Vertical">
+        <RadzenLabel Component="eProjectName" Text="Project Name:"/>
+        <RadzenTextBox Name="eProjectName" @bind-Value="@Model.ProjectName" Placeholder="Enter project name..."/>
+        <RadzenDataAnnotationValidator Component="eProjectName"/>
+
+        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.End">
+            <RadzenButton ButtonStyle="ButtonStyle.Secondary" Text="Cancel" Click="CloseDialog"/>
+            <RadzenButton ButtonType="ButtonType.Submit" Text="Create"/>
+        </RadzenStack>
+    </RadzenStack>
+</RadzenTemplateForm>

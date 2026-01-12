@@ -20,6 +20,9 @@ public abstract class BasePage : ComponentBase
     [Inject]
     public NotificationService NotificationService { get; set; } = null!;
 
+    [Inject]
+    public ContextMenuService ContextMenuService { get; set; } = null!;
+
     protected abstract string PageTitle { get; }
 
     protected override void OnInitialized()
