@@ -36,8 +36,9 @@ public partial class ProjectsList
         }
 
         await using MainDbContext dbContext = await _dbContextFactory.CreateDbContextAsync();
+        int userId = AuthenticationStateProvider.AuthenticatedUser!.Id;
         List<Project> projects = await dbContext.Projects.Include(p => p.Owner)
-           .Where(p => p.OwnerId == AuthenticationStateProvider.AuthenticatedUser!.Id)
+           .Where(p => p.OwnerId == userId || p.Environments.Any(e => e.Users.Any(u => u.Id == userId)) || p.Environments.Any(e => e.UserGroups.Any(g => g.Users.Any(u => u.Id == userId))))
            .OrderBy(p => p.Name).ToListAsync();
         _projects = projects.Select(p => new ProjectsListItemModel(p)).ToList();
     }
