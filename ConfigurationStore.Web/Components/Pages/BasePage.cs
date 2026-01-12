@@ -25,6 +25,11 @@ public abstract class BasePage : ComponentBase
     protected override void OnInitialized()
     {
         base.OnInitialized();
+        UpdatePageTitle();
+    }
+
+    protected void UpdatePageTitle()
+    {
         SetPageTitle?.Invoke(PageTitle);
     }
 }

@@ -2,11 +2,11 @@
 
 namespace ConfigurationStore.Web.Components.Pages;
 
-public class ProjectsModel
+public class ProjectsListModel
 {
     private readonly Project _project;
 
-    public ProjectsModel(Project project)
+    public ProjectsListModel(Project project)
     {
         _project = project ?? throw new ArgumentNullException(nameof(project));
     }

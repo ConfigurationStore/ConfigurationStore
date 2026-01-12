@@ -31,8 +31,11 @@
       <Compile Update="Components\Dialogs\NewProjectDialogModel.cs">
         <DependentUpon>NewProjectDialog.razor</DependentUpon>
       </Compile>
-      <Compile Update="Components\Pages\ProjectsModel.cs">
-        <DependentUpon>Projects.razor</DependentUpon>
+      <Compile Update="Components\Pages\ProjectsListModel.cs">
+        <DependentUpon>ProjectsList.razor</DependentUpon>
+      </Compile>
+      <Compile Update="Components\Pages\ProjectEditModel.cs">
+        <DependentUpon>ProjectEdit.razor</DependentUpon>
       </Compile>
     </ItemGroup>
 

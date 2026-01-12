@@ -1,0 +1,12 @@
+﻿@page "/projects/{ProjectId:int}"
+@inherits AuthenticatedPageBase
+
+@if (_model == null)
+{
+    <h3>Project #{@ProjectId}</h3>
+    <p>There is no project with the given Id in the database.</p>
+}
+else
+{
+    <h3>@_model.Name</h3>
+}

@@ -7,14 +7,14 @@ using Radzen;
 
 namespace ConfigurationStore.Web.Components.Pages;
 
-public partial class Projects
+public partial class ProjectsList
 {
     private readonly IDbContextFactory<MainDbContext> _dbContextFactory;
     protected override string PageTitle => "Projects";
 
-    private List<ProjectsModel>? _projects;
+    private List<ProjectsListModel>? _projects;
 
-    public Projects(IDbContextFactory<MainDbContext> dbContextFactory)
+    public ProjectsList(IDbContextFactory<MainDbContext> dbContextFactory)
     {
         _dbContextFactory = dbContextFactory ?? throw new ArgumentNullException(nameof(dbContextFactory));
     }
@@ -30,7 +30,7 @@ public partial class Projects
     {
         await using MainDbContext dbContext = await _dbContextFactory.CreateDbContextAsync();
         List<Project> projects = await dbContext.Projects.Include(p => p.Owner).OrderBy(p => p.Name).ToListAsync();
-        _projects = projects.Select(p => new ProjectsModel(p)).ToList();
+        _projects = projects.Select(p => new ProjectsListModel(p)).ToList();
     }
 
     private async Task NewProject()
