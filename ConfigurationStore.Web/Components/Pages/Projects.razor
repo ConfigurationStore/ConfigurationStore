@@ -12,14 +12,14 @@
 
             @if (_projects != null)
             {
-                <RadzenDataGrid Data="@_projects">
+                <RadzenDataGrid Data="@_projects" AllowFiltering="true" AllowSorting="true">
                     <Columns>
-                        <RadzenDataGridColumn Property="Name" Title="Name">
+                        <RadzenDataGridColumn Property="Name" Title="Name" Filterable="true" Sortable="true" FilterMode="FilterMode.CheckBoxList" FilterProperty="Name">
                             <Template Context="item">
                                 <RadzenLink Text="@item.Name" Path="@item.ProjectUrl"/>
                             </Template>
                         </RadzenDataGridColumn>
-                        <RadzenDataGridColumn Property="Owner" Title="Owner">
+                        <RadzenDataGridColumn Property="Owner" Title="Owner" Filterable="true" Sortable="true" FilterMode="FilterMode.CheckBoxList" FilterProperty="Owner">
                             <Template Context="item">
                                 <RadzenLink Text="@item.Owner" Path="@item.OwnerUrl"/>
                             </Template>
