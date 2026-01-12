@@ -1,7 +1,7 @@
 ﻿@page "/projects/{ProjectId:int}"
 @inherits AuthenticatedPageBase
 
-@if (_model == null)
+@if (_project == null)
 {
     <h3>Project #{@ProjectId}</h3>
     <p>There is no project with the given Id in the database.</p>
@@ -10,7 +10,7 @@ else
 {
     <RadzenStack Orientation="Orientation.Vertical">
         <RadzenStack AlignItems="AlignItems.Center" Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.SpaceBetween">
-            <RadzenText Text="@_model.Name" TextStyle="TextStyle.H4" />
+            <RadzenText Text="@_project.Name" TextStyle="TextStyle.H4" />
             <RadzenSplitButton Icon="list" Click="OnContextButtonClick">
                 <ChildContent>
                     <RadzenSplitButtonItem Style="white-space: nowrap;" Text="Rename Project" Value="rename" Icon="edit"/>
@@ -21,7 +21,19 @@ else
         <RadzenTabs>
             <Tabs>
                 <RadzenTabsItem Text="Environments" Icon="desktop_cloud_stack">
-                    Environments
+                    <RadzenStack Orientation="Orientation.Vertical">
+                        @if (_project?.Environments?.Count > 0)
+                        {
+                            <RadzenDataGrid Data="@_project.Environments" AllowFiltering="true" AllowSorting="true">
+                                <Columns>
+                                    <RadzenDataGridColumn Property="Name" Title="Name"/>
+                                </Columns>
+                            </RadzenDataGrid>
+                        }
+                        <RadzenStack Orientation="Orientation.Horizontal">
+                            <RadzenButton Icon="add" Text="New Environment" Click="@NewEnvironment"/>
+                        </RadzenStack>
+                    </RadzenStack>
                 </RadzenTabsItem>
                 <RadzenTabsItem Text="Secrets" Icon="lock">
                     Secrets
@@ -38,7 +50,7 @@ else
 
     private RenderFragment ConfirmDeleteContent
         => @<div>
-               <p>Are you sure you want to delete project @_model!.Name?</p>
+               <p>Are you sure you want to delete project @_project!.Name?</p>
                <p>
                    This will also delete:
                </p>

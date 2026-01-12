@@ -12,7 +12,6 @@
       <ProjectReference Include="..\ConfigurationStore.Api\ConfigurationStore.Api.csproj" />
       <ProjectReference Include="..\ConfigurationStore.Auth\ConfigurationStore.Auth.csproj" />
       <ProjectReference Include="..\ConfigurationStore.Data\ConfigurationStore.Data.csproj" />
-      <ProjectReference Include="..\ConfigurationStore.Validation\ConfigurationStore.Validation.csproj" />
       <ProjectReference Include="..\LVK.Libraries\src\LVK.Bootstrapping\LVK.Bootstrapping.csproj" />
       <ProjectReference Include="..\LVK.Libraries\src\LVK.Core\LVK.Core.csproj" />
       <ProjectReference Include="..\LVK.Libraries\src\LVK.Events\LVK.Events.csproj" />
@@ -28,17 +27,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Components\Dialogs\NewProjectDialogModel.cs">
-        <DependentUpon>NewProjectDialog.razor</DependentUpon>
-      </Compile>
-      <Compile Update="Components\Pages\ProjectsListModel.cs">
-        <DependentUpon>ProjectsList.razor</DependentUpon>
-      </Compile>
-      <Compile Update="Components\Pages\ProjectEditModel.cs">
+      <Compile Update="Components\Pages\ProjectEnvironmentsListItemModel.cs">
         <DependentUpon>ProjectEdit.razor</DependentUpon>
       </Compile>
-      <Compile Update="Components\Dialogs\RenameProjectDialogModel.cs">
-        <DependentUpon>RenameProjectDialog.razor</DependentUpon>
+      <Compile Update="Components\Pages\ProjectsListItemModel.cs">
+        <DependentUpon>ProjectsList.razor</DependentUpon>
       </Compile>
     </ItemGroup>
 

@@ -1,0 +1,14 @@
+﻿@using ConfigurationStore.Web.Models
+<RadzenTemplateForm TItem="EditProjectEnvironmentDialogModel" Data="Model" Submit="SaveEnvironment" InvalidSubmit="InvalidSubmit">
+    <DataAnnotationsValidator />
+    <RadzenStack Orientation="Orientation.Vertical">
+        <RadzenLabel Component="eEnvironmentName" Text="Environment Name:"/>
+        <RadzenTextBox Name="eEnvironmentName" @bind-Value="@Model.Name" Placeholder="Enter environment name..."/>
+        <RadzenDataAnnotationValidator Component="eEnvironmentName"/>
+
+        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.End">
+            <RadzenButton ButtonStyle="ButtonStyle.Secondary" Text="Cancel" Click="CloseDialog"/>
+            <RadzenButton ButtonType="ButtonType.Submit" Text="@Model.AcceptButtonText"/>
+        </RadzenStack>
+    </RadzenStack>
+</RadzenTemplateForm>

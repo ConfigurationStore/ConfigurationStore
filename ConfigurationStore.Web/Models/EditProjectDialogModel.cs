@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-using ConfigurationStore.Validation.Projects;
+using ConfigurationStore.Web.Models.Validation.Projects;
 
-namespace ConfigurationStore.Web.Components.Dialogs;
+namespace ConfigurationStore.Web.Models;
 
-public class RenameProjectDialogModel
+public class EditProjectDialogModel
 {
     [Required]
     [StringLength(128, ErrorMessage = "Project name must be at least 6, and at most 128 characters long", MinimumLength = 2)]
@@ -14,4 +14,6 @@ public class RenameProjectDialogModel
     public string ProjectName { get; set; } = "";
 
     public bool Accepted { get; set; }
+
+    public required string AcceptButtonText { get; set; }
 }

@@ -1,5 +1,6 @@
 ﻿using ConfigurationStore.Data;
 using ConfigurationStore.Web.Components.Dialogs;
+using ConfigurationStore.Web.Models;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -13,9 +14,9 @@ namespace ConfigurationStore.Web.Components.Pages;
 public partial class ProjectEdit
 {
     private readonly IDbContextFactory<MainDbContext> _dbContextFactory;
-    protected override string PageTitle  => _model == null ? "Unknown project" : _model.Name;
+    protected override string PageTitle  => _project == null ? "Unknown project" : _project.Name;
 
-    private ProjectEditModel? _model;
+    private Project? _project;
 
     [Parameter]
     public int ProjectId { get; set; }
@@ -29,8 +30,7 @@ public partial class ProjectEdit
     {
         await base.OnInitializedAsync();
         await using MainDbContext dbContext = await _dbContextFactory.CreateDbContextAsync();
-        Project? project = await LoadProject(dbContext);
-        _model = project != null ? new ProjectEditModel(project) : null;
+        _project = await LoadProject(dbContext);
         UpdatePageTitle();
     }
 
@@ -38,7 +38,7 @@ public partial class ProjectEdit
     {
         bool? result = await DialogService.Confirm(
             message: ConfirmDeleteContent,
-            title: "Really delete project " + _model!.Name, new ConfirmOptions
+            title: "Really delete project " + _project!.Name, new ConfirmOptions
             {
                 OkButtonText = "Delete",
                 CloseDialogOnEsc = true,
@@ -51,7 +51,7 @@ public partial class ProjectEdit
             if (project == null)
             {
                 NotificationService.Notify(NotificationSeverity.Error, summary: "Project not found",
-                    detail: $"Project {_model.Name} no longer exists", duration: 4000);
+                    detail: $"Project {_project.Name} no longer exists", duration: 4000);
 
                 return;
             }
@@ -59,18 +59,19 @@ public partial class ProjectEdit
             dbContext.Projects.Remove(project);
             await dbContext.SaveChangesAsync();
 
-            NotificationService.Notify(NotificationSeverity.Success, summary: "Project " + _model.Name + " deleted successfully", duration: 4000);
+            NotificationService.Notify(NotificationSeverity.Success, summary: "Project " + _project.Name + " deleted successfully", duration: 4000);
             NavigationManager.NavigateTo("/projects");
         }
     }
 
     private async Task RenameProject()
     {
-        var model = new RenameProjectDialogModel
+        var model = new EditProjectDialogModel
         {
-            ProjectName = _model!.Name,
+            ProjectName = _project!.Name,
+            AcceptButtonText = "Rename",
         };
-        await DialogService.OpenAsync<RenameProjectDialog>("Rename Project", new Dictionary<string, object>() { ["model"] = model });
+        await DialogService.OpenAsync<EditProjectDialog>("Rename Project", new Dictionary<string, object>() { ["model"] = model });
         Console.WriteLine(model.Accepted + ": " + model.ProjectName);
 
         if (model.Accepted)
@@ -80,14 +81,14 @@ public partial class ProjectEdit
             if (project == null)
             {
                 NotificationService.Notify(NotificationSeverity.Error, summary: "Project not found",
-                        detail: $"Project {_model.Name} no longer exists", duration: 4000);
+                        detail: $"Project {_project.Name} no longer exists", duration: 4000);
 
                 return;
             }
 
             project.Name = model.ProjectName;
             await dbContext.SaveChangesAsync();
-            _model = new ProjectEditModel(project);
+            _project = project;
             UpdatePageTitle();
             StateHasChanged();
         }
@@ -115,6 +116,38 @@ public partial class ProjectEdit
             case "rename":
                 await RenameProject();
                 break;
+        }
+    }
+
+    private async Task NewEnvironment()
+    {
+        var model = new EditProjectEnvironmentDialogModel
+        {
+            ProjectId = ProjectId,
+            ProjectName = _project!.Name,
+            AcceptButtonText = "Create",
+        };
+        await DialogService.OpenAsync<EditProjectEnvironmentDialog>("New Environment", new Dictionary<string, object>() { ["model"] = model });
+
+        if (model.Accepted)
+        {
+            await using MainDbContext dbContext = await _dbContextFactory.CreateDbContextAsync();
+            dbContext.ProjectEnvironments.Add(new ProjectEnvironment
+            {
+                ProjectId = ProjectId,
+                Name = model.Name.Trim(),
+            });
+
+            try
+            {
+                await dbContext.SaveChangesAsync();
+                _project = await LoadProject(dbContext);
+                StateHasChanged();
+            }
+            catch (Exception ex)
+            {
+                NotificationService.Notify(NotificationSeverity.Error, summary: "Unable to create environment", detail: ex.Message, duration: 4000);
+            }
         }
     }
 }

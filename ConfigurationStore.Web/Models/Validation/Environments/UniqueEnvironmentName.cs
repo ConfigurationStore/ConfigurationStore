@@ -4,9 +4,9 @@ using ConfigurationStore.Data;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace ConfigurationStore.Validation.Projects;
+namespace ConfigurationStore.Web.Models.Validation.Environments;
 
-public class UniqueProjectName : ValidationAttribute
+public class UniqueEnvironmentName : ValidationAttribute
 {
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
@@ -16,9 +16,11 @@ public class UniqueProjectName : ValidationAttribute
             return ValidationResult.Success; // [Required] will handle this
         }
 
+        var model = (EditProjectEnvironmentDialogModel)validationContext.ObjectInstance;
+
         IDbContextFactory<MainDbContext> dbContextFactory = validationContext.GetService<IDbContextFactory<MainDbContext>>();
         using MainDbContext dbContext = dbContextFactory.CreateDbContext();
-        return dbContext.Projects
-           .Any(p => p.Name.ToLower() == name) ? new ValidationResult("Project name already exists") : ValidationResult.Success;
+        return dbContext.ProjectEnvironments
+           .Any(pe => pe.Name.ToLower() == name && pe.ProjectId == model.ProjectId) ? new ValidationResult($"Project {model.ProjectName} already has an environment with that name") : ValidationResult.Success;
     }
 }

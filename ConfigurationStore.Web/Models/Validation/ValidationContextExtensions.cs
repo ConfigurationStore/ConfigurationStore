@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ConfigurationStore.Validation;
+namespace ConfigurationStore.Web.Models.Validation;
 
 public static class ValidationContextExtensions
 {

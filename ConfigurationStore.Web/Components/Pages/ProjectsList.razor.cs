@@ -1,5 +1,6 @@
 ﻿using ConfigurationStore.Data;
 using ConfigurationStore.Web.Components.Dialogs;
+using ConfigurationStore.Web.Models;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +13,7 @@ public partial class ProjectsList
     private readonly IDbContextFactory<MainDbContext> _dbContextFactory;
     protected override string PageTitle => "Projects";
 
-    private List<ProjectsListModel>? _projects;
+    private List<ProjectsListItemModel>? _projects;
 
     public ProjectsList(IDbContextFactory<MainDbContext> dbContextFactory)
     {
@@ -28,15 +29,26 @@ public partial class ProjectsList
 
     private async Task UpdateProjectList()
     {
+        if (AuthenticationStateProvider.AuthenticatedUser == null)
+        {
+            _projects = null;
+            return;
+        }
+
         await using MainDbContext dbContext = await _dbContextFactory.CreateDbContextAsync();
-        List<Project> projects = await dbContext.Projects.Include(p => p.Owner).OrderBy(p => p.Name).ToListAsync();
-        _projects = projects.Select(p => new ProjectsListModel(p)).ToList();
+        List<Project> projects = await dbContext.Projects.Include(p => p.Owner)
+           .Where(p => p.OwnerId == AuthenticationStateProvider.AuthenticatedUser!.Id)
+           .OrderBy(p => p.Name).ToListAsync();
+        _projects = projects.Select(p => new ProjectsListItemModel(p)).ToList();
     }
 
     private async Task NewProject()
     {
-        var model = new NewProjectDialogModel();
-        await DialogService.OpenAsync<NewProjectDialog>("New Project", new Dictionary<string, object>() { ["model"] = model });
+        var model = new EditProjectDialogModel
+        {
+            AcceptButtonText = "Create",
+        };
+        await DialogService.OpenAsync<EditProjectDialog>("New Project", new Dictionary<string, object>() { ["model"] = model });
 
         if (model.Accepted)
         {

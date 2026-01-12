@@ -1,4 +1,5 @@
-﻿<RadzenTemplateForm TItem="RenameProjectDialogModel" Data="Model" Submit="RenameProject" InvalidSubmit="DoNotRenameProject">
+﻿@using ConfigurationStore.Web.Models
+<RadzenTemplateForm TItem="EditProjectDialogModel" Data="Model" Submit="SaveProject" InvalidSubmit="InvalidSubmit">
     <DataAnnotationsValidator />
     <RadzenStack Orientation="Orientation.Vertical">
         <RadzenLabel Component="eProjectName" Text="Project Name:"/>
@@ -7,7 +8,7 @@
 
         <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.End">
             <RadzenButton ButtonStyle="ButtonStyle.Secondary" Text="Cancel" Click="CloseDialog"/>
-            <RadzenButton ButtonType="ButtonType.Submit" Text="Create"/>
+            <RadzenButton ButtonType="ButtonType.Submit" Text="@Model.AcceptButtonText"/>
         </RadzenStack>
     </RadzenStack>
 </RadzenTemplateForm>
